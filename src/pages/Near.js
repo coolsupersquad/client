@@ -1,17 +1,35 @@
-import { google } from 'google-maps';
+import React, { Component } from 'react';
+import GoogleMapReact from 'google-map-react';
 
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
-let map;
+class SimpleMap extends Component {
+  static defaultProps = {
+    center: {
+      lat: 59.95,
+      lng: 30.33
+    },
+    zoom: 11
+  };
 
-function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 8,
-  });
-  <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgYD-yjDO9bqmrFYuOZWwDKa3uX6DSJAI&callback=initMap">
-        
-    </script>
+  render() {
+    return (
+      // Important! Always set the container height explicitly
+      <div style={{ height: '100vh', width: '100%' }}>
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: "AIzaSyDgYD-yjDO9bqmrFYuOZWwDKa3uX6DSJAI" }}
+          defaultCenter={this.props.center}
+          defaultZoom={this.props.zoom}
+        >
+          <AnyReactComponent
+            lat={59.955413}
+            lng={30.337844}
+            text="My Marker"
+          />
+        </GoogleMapReact>
+      </div>
+    );
+  }
 }
 
-export default initMap;
+export default SimpleMap;
