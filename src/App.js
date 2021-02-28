@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Home from "./pages/Home";
-import Search from "./pages/Search";
+import Create from "./pages/Create";
 import Near from "./pages/Near";
 import Account from "./pages/Account";
 import AppBar from '@material-ui/core/AppBar';
@@ -23,11 +23,12 @@ import { db, firebaseAuth } from './config/constants';
 
 
 function PrivateR({ component: Component, authed, ...rest }) {
+  console.log("Checking user", window.user)
   return (
     <Route
       {...rest}
       render={props =>
-        authed ? (
+        window.user ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -43,11 +44,7 @@ function PublicR({ component: Component, authed, ...rest }) {
     <Route
       {...rest}
       render={props =>
-        !authed ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/search" />
-        )}
+        <Component {...props} />}
     />
   );
 }
@@ -91,7 +88,7 @@ function App() {
           <BottomNavigation value={value} onChange={handleChange} className="bottomNav">
             <BottomNavigationAction component={Link} to="/" label="Recents" value="NAV_" icon={<RestoreIcon />} />
             <BottomNavigationAction component={Link} to="/near" label="Nearby" value="NAV_near" icon={<LocationOnIcon />} />
-            <BottomNavigationAction component={Link} to="/search" label="Folder" value="NAV_search" icon={<FolderIcon />} />
+            <BottomNavigationAction component={Link} to="/create" label="Folder" value="NAV_create" icon={<FolderIcon />} />
             <BottomNavigationAction component={Link} to="/account" label="Account" value="NAV_account" icon={<FavoriteIcon />} />
           </BottomNavigation>
 
@@ -102,10 +99,10 @@ function App() {
 
                 <PrivateR
                     authed={authed}
-                    path="/search"
-                    component={Search}
+                    path="/create"
+                    component={Create}
                   />
-                <PrivateR
+                <PublicR
                     authed={authed}
                     path="/near"
                     component={Near}
