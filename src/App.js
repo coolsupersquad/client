@@ -13,9 +13,11 @@ import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 
+
+
 import logo from './logo.svg';
 import './App.css';
-
+import './assets/style/locations.css'; 
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Route, HashRouter, Link, Redirect, Switch } from 'react-router-dom';
 
