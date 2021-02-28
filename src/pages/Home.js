@@ -77,9 +77,10 @@ export default function() {
                                 <Button onClick = {(e) => window.location.pathname="/near"} tag="a" color="primary" variant="contained">
                                     Sources near me
                                 </Button>
-                                <Button onClick = {(e) => window.location.pathname="/account"}  tag="a" color="secondary" variant="outlined">
+                                <Button component={Link} to="/create"  tag="a" color="secondary" variant="outlined">
                                     Create a source
                                 </Button>
+                                {/* onClick = {(e) => window.location.pathname="/create"} */}
                                 {/* <Button component={Link} to="/near" tag="a" color="primary" variant="contained">
                                     Sources near me
                                 </Button>
