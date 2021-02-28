@@ -65,78 +65,52 @@ const Near = () => {
   }
 
   const loadLocations = () => {
-    
-      superagent
-        .get('http://35.222.213.18/api/events')
-        .end((err, res) => {
-          res.body.forEach( (el) => {
-            console.log(el)
-            
-            let addressRes = el.address + ", " + el.city + ", " + el.state // address
-            let nameRes = el.name
-            let orgName = el.org
-            let dateOf = el.date
-            let typeEvent = el.eventType
-            let startTime = el.start
-            let endTime = el.end
-            let nes  = []
-           let arrLength = el.necessities.length
-           if (arrLength.length>1)
-           {
-            for (var i = 0; i < arrLength; i++)
-            {
-              nes[i] = el.necessities[i];
-            }
-          }
-          else
-          {
-            nes[0] = "N/A"
-          }
-           addressRes = "2557 Thresher Circle, Plano, TX"
-            console.log(addressRes)
-            try {
-              getGeocode({ address: addressRes })
-                .then((results) => getLatLng(results[0]))
-                .then(({ lat, lng }) => {
-                  let chunk = []
-                  
-                  console.log("📍 Coordinates: ", { lat, lng });
-                  let item = {
-                      name: nameRes,
-                      address: addressRes,
-                      org: orgName,
-                      date: dateOf,
-                      eventType: typeEvent,
-                      start: startTime,
-                      end: endTime,
-                      nesc: nes,
-                      location: {
-                        lat: lat, //32.9858,
-                        lng: lng //-96.7501
-                      },
-                  };
-                  // chunk.push(item)
-                  // console.log("Old locations, ", locations)
-                  // console.log("New locations, ", [...locations, item])
-                  // setLocations([...locations, item])
-                  setLocations(locations => locations.concat(item))
-                })
-                .catch((error) => {
-                  console.log("😱 Error: ", error);
-                });
-              // const results = await getGeocode({address: addressRes});
-              // // Returns the lat and lng from the JSON object aquired from the above function
-              // const {latRes, lngRes} = await getLatLng(results[0]);  // <------
-              // console.log("Location", latRes, lngRes)
-  
-              // let item = {
-              //   name: nameRes,
-              //   // address: addressRes,
-              //   location: {
-              //     lat: latRes, //32.9858,
-              //     lng: lngRes //-96.7501
-              //   },
-              // };
+    superagent.get('http://35.222.213.18/api/events').end((err, res) => {
+      res.body.forEach((el) => {
+        console.log(el)
+
+        let addressRes = el.address + ', ' + el.city + ', ' + el.state // address
+        let nameRes = el.name
+        let orgName = el.org
+        let dateOf = el.date
+        let typeEvent = el.eventType
+        let startTime = el.start
+        let endTime = el.end
+        let nes = []
+        let arrLength = el.necessities.length
+        if (arrLength > 1)
+        {
+        for (var i = 0; i < arrLength; i++) {
+          nes[i] = el.necessities[i]
+        }
+      }
+        else
+        {
+          nes[0] = "N/A";
+        }
+        // addressRes = "2557 Thresher Circle, Plano, TX"
+        console.log(addressRes)
+        try {
+          getGeocode({ address: addressRes })
+            .then((results) => getLatLng(results[0]))
+            .then(({ lat, lng }) => {
+              let chunk = []
+
+              console.log('📍 Coordinates: ', { lat, lng })
+              let item = {
+                name: nameRes,
+                address: addressRes,
+                org: orgName,
+                date: dateOf,
+                eventType: typeEvent,
+                start: startTime,
+                end: endTime,
+                nesc: nes,
+                location: {
+                  lat: lat, //32.9858,
+                  lng: lng, //-96.7501
+                },
+              }
               // chunk.push(item)
               // console.log("Old locations, ", locations)
               // console.log("New locations, ", [...locations, item])
@@ -235,12 +209,11 @@ const Near = () => {
               </p>
               <p>Address: {selected.address}</p>
               <p>What {selected.org} needs: </p>
-              <ul>
+              <ol>
                 {selected.nesc.map((nesce) => (
-                  <li className="nes">{nesce}</li>
-                )
-                )}
-              </ul>
+                  <li className='nes'>{nesce}</li>
+                ))}
+              </ol>
             </div>
           </InfoWindow>
         )}
