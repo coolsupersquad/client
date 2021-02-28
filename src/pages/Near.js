@@ -65,45 +65,13 @@ const Near = () => {
   );
 
   const [ filled, setFilled ] = useState(false)
-  const [ locations, setLocations ] = useState([
-    {
-      name: "Location 1",
-      location: { 
-        lat: 41.3954,
-        lng: 2.162 
-      },
-    },
-    {
-      name: "Location 2",
-      location: { 
-        lat: 41.3917,
-        lng: 2.1649
-      },
-    },
-    {
-      name: "Location 3",
-      location: { 
-        lat: 41.3773,
-        lng: 2.1585
-      },
-    },
-    {
-      name: "Location 4",
-      location: { 
-        lat: 41.3797,
-        lng: 2.1682
-      },
-    },
-    {
-      name: "Location 5",
-      location: { 
-        lat: 41.4055,
-        lng: 2.1915
-      },
-    }
-  ])
+  const [selected, setSelected] = React.useState({}); 
+  //const [markers, setMarkers] = React.useState; 
+  const [ locations, setLocations ] = useState([]); 
   
-  
+  const onSelect = item => {
+    setSelected(item);
+  }
 
   const loadLocations = () => {
     
@@ -115,6 +83,17 @@ const Near = () => {
             
             let addressRes = el.address + ", " + el.city + ", " + el.state // address
             let nameRes = el.name
+            let orgName = el.org
+            let dateOf = el.date
+            let typeEvent = el.eventType
+            let startTime = el.start
+            let endTime = el.end
+            let nes  = []
+           let arrLength = el.necessities.length
+            for (var i = 0; i < arrLength; i++)
+            {
+              nes[i] = el.necessities[i];
+            }
             // addressRes = "2557 Thresher Circle, Plano, TX"
             console.log(addressRes)
             try {
@@ -126,7 +105,13 @@ const Near = () => {
                   console.log("📍 Coordinates: ", { lat, lng });
                   let item = {
                       name: nameRes,
-                      // address: addressRes,
+                      address: addressRes,
+                      org: orgName,
+                      date: dateOf,
+                      eventType: typeEvent,
+                      start: startTime,
+                      end: endTime,
+                      nesc: nes,
                       location: {
                         lat: lat, //32.9858,
                         lng: lng //-96.7501
@@ -191,8 +176,7 @@ const Near = () => {
     mapRef.current.setZoom(14);
   }); 
 
-  
-
+ 
   if (loadError) return "Error loading the map."
   if (!isLoaded) return "Map loading."
 
@@ -206,15 +190,45 @@ const Near = () => {
           options ={options}
           center = {center}
           onLoad = {onMapLoad}
+          
           >
             {
-              locations.length > 0 && 
-              (locations.map(item => {
-                return (
-                  <Marker key={item.name} position={item.location}/>
+              locations.map(item => {
+               return (
+                  <Marker key={item.name} 
+                  position={item.location}
+                  onClick={() => {
+                      onSelect(item); 
+                  }
+                  }
+                  />
                 )
-              }))
-            }
+                })}
+                {
+            selected.location && 
+            (
+              <InfoWindow
+              position={selected.location}
+              clickable={true}
+              onCloseClick={() => setSelected({})}
+            >
+              <div className="main">
+              <h2>{selected.name}</h2>
+              <p>This event is hosted by: {selected.org}</p>
+              <p>The event is {selected.eventType}</p>
+              <p>This event is from {selected.start} to {selected.end}</p>
+              <p>Address: {selected.address}</p>
+              <p>What {selected.org} needs: </p>
+              <ol>
+                {selected.nesc.map((nesce) => (
+                  <li className="nes">{nesce}</li>
+                )
+                )}
+              </ol>
+            </div>
+            </InfoWindow>
+            )
+         }
         </GoogleMap>
       </div>
   )
