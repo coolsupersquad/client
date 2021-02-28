@@ -65,47 +65,6 @@ const Near = () => {
   }
 
   const loadLocations = () => {
-<<<<<<< HEAD
-    superagent.get('http://35.222.213.18/api/events').end((err, res) => {
-      res.body.forEach((el) => {
-        console.log(el)
-
-        let addressRes = el.address + ', ' + el.city + ', ' + el.state // address
-        let nameRes = el.name
-        let orgName = el.org
-        let dateOf = el.date
-        let typeEvent = el.eventType
-        let startTime = el.start
-        let endTime = el.end
-        let nes = []
-        let arrLength = el.necessities.length
-        for (var i = 0; i < arrLength; i++) {
-          nes[i] = el.necessities[i]
-        }
-        // addressRes = "2557 Thresher Circle, Plano, TX"
-        console.log(addressRes)
-        try {
-          getGeocode({ address: addressRes })
-            .then((results) => getLatLng(results[0]))
-            .then(({ lat, lng }) => {
-              let chunk = []
-
-              console.log('📍 Coordinates: ', { lat, lng })
-              let item = {
-                name: nameRes,
-                address: addressRes,
-                org: orgName,
-                date: dateOf,
-                eventType: typeEvent,
-                start: startTime,
-                end: endTime,
-                nesc: nes,
-                location: {
-                  lat: lat, //32.9858,
-                  lng: lng, //-96.7501
-                },
-              }
-=======
     
       superagent
         .get('http://35.222.213.18/api/events')
@@ -178,7 +137,6 @@ const Near = () => {
               //     lng: lngRes //-96.7501
               //   },
               // };
->>>>>>> 5d3405d6b1b6380daea10bc5bc27f31d0c347603
               // chunk.push(item)
               // console.log("Old locations, ", locations)
               // console.log("New locations, ", [...locations, item])
