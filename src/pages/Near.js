@@ -161,6 +161,7 @@ const Near = () => {
           // };
           // chunk.push(item)
           // console.log("Adding ", item)
+          // something
           console.log(locations)
         } catch (error) {
           console.error(error)
