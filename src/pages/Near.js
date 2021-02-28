@@ -26,6 +26,8 @@ import
 
 import "@reach/combobox/styles.css"; 
 
+import "../assets/style/Near.css"
+
 import { useState, useEffect } from 'react';
 
 require('dotenv').config();
@@ -38,7 +40,7 @@ const libraries = ["places"]
 const mapContainerStyle = 
 {
   width: "100vw",
-  height: "100vh"
+  height: "calc(100vh - 56px)"
 }; 
 
 // Used to set the default location of the map
@@ -169,7 +171,7 @@ const Near = () => {
   useEffect( () => {
     try {
       // setLocations();
-
+      // window.location.mpth = "/near"
       loadLocations()
     } catch (err) {
       console.error(err)
@@ -258,6 +260,7 @@ function Search({landOn})
       }}
       disabled={!ready}
       placeholder = "Enter an address"
+      className = "inputcombo"
       />
       <ComboboxPopover>
         <ComboboxList>

@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { login, resetPassword } from '../helpers/auth';
+import { login, register, resetPassword } from '../helpers/auth';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField'
@@ -23,10 +23,32 @@ export default class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    login(this.state.email, this.state.password).catch(error => {
-      this.setState(setErrorMsg('Invalid username/password.'));
-    });
+    login(this.state.email, this.state.password)
+      .then(usr => {
+        window.user = usr
+        window.location.pathname = "/"
+      })
+      .catch(error => {
+        this.setState(setErrorMsg('Invalid username/password.'));
+      });
   };
+
+  handleRegister = e => {
+    e.preventDefault();
+    let res = window.confirm("Create user with " + this.state.email + "?")
+    if (res) {
+      register(this.state.email, this.state.password)
+        .then(usr => {
+          window.user = usr
+          window.location.pathname = "/"
+        })
+        .catch(error => {
+          console.log(error)
+          this.setState(setErrorMsg("(registration error) " + error.message));
+        });
+    }
+  }
+
   resetPassword = () => {
     resetPassword(this.state.email)
       .then(() =>
@@ -36,24 +58,28 @@ export default class Login extends Component {
       )
       .catch(error => this.setState(setErrorMsg(`Email address not found.`)));
   };
+
+
   render() {
     return (
       <form
         style={style.container}
-        onSubmit={event => this.handleSubmit(event)}
       >
         <h3>Login</h3>
         <TextField
           placeholder="Your email"
           label="Email"
-          onChange={(event, newValue) => this.setState({ email: newValue })}
+          value={this.state.value}
+          onChange={(e, newValue) => {
+            this.setState({ email: e.target.value })
+          }}
         />
         <br />
         <TextField
           type="password"
           placeholder="Your super strong password"
           label="Password"
-          onChange={(event, newValue) => this.setState({ password: newValue })}
+          onChange={(e, newValue) => this.setState({ password: e.target.value })}
         />
         <br />
         {this.state.loginMessage && (
@@ -74,7 +100,20 @@ export default class Login extends Component {
           primary={true}
           style={style.raisedBtn}
           type="submit"
-        />
+
+          onClick={event => this.handleSubmit(event)}
+        >
+          Login
+          </Button>
+
+          <Button variant="contained"
+          primary={false}
+          style={style.raisedBtn}
+
+          onClick={event => this.handleRegister(event)}
+        >
+          Register
+          </Button>
       </form>
     );
   }
