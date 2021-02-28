@@ -13,6 +13,7 @@ import RestoreIcon from '@material-ui/icons/Restore'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
 import AddIcon from '@material-ui/icons/Add'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 
 import logo from './logo.svg'
 import './App.css'
@@ -108,7 +109,7 @@ function App() {
             to='/account'
             label='Account'
             value='NAV_account'
-            icon={<FavoriteIcon />}
+            icon={<AccountCircleIcon />}
           />
         </BottomNavigation>
 
