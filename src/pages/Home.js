@@ -8,11 +8,11 @@ import Particles from 'react-particles-js';
 
 export default function() {
     return (
-        <div>
+        <div className="outercont">
             <Particles
                 className="particles"
 
-                height="200px"
+                height="90vh"
 
                 style={{
                     // width: '100%',
@@ -22,7 +22,7 @@ export default function() {
                 params={{
                     "particles": {
                         "number": {
-                            "value": 40,
+                            "value": 80,
                             "density": {
                                 "enable": false
                             }
@@ -31,7 +31,7 @@ export default function() {
                             "value": "#00000"
                         },
                         "size": {
-                            "value": 4,
+                            "value": 6,
                             "random": true
                         },
                         "move": {
@@ -61,7 +61,7 @@ export default function() {
                     }
                 }} />
 
-            <div className="container-sm">
+            <div className="headercont">
                 <div className="section-inner illustration-section-01">
                     <div className="hero-content">
                         <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
@@ -73,11 +73,11 @@ export default function() {
                         </p>
                         <div className="reveal-from-bottom" data-reveal-delay="600">
                             <ButtonGroup>
-                                <Button component={Link} to="/" tag="a" color="primary" variant="contained" wideMobile>
+                                <Button component={Link} to="/near" tag="a" color="primary" variant="contained" wideMobile>
                                     Sources near me
                                 </Button>
-                                <Button component={Link} to="/" tag="a" color="secondary" variant="outlined" wideMobile>
-                                    Fund a source
+                                <Button component={Link} to="/account" tag="a" color="secondary" variant="outlined" wideMobile>
+                                    Create a source
                                 </Button>
                             </ButtonGroup>
                         </div>
