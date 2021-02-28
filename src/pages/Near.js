@@ -26,6 +26,9 @@ import
 
 import "@reach/combobox/styles.css"; 
 
+require('dotenv').config();
+const superagent = require('superagent');
+
 // Load Google API Library
 const libraries = ["places"]
 
@@ -50,24 +53,29 @@ const options =
 
 
 const Near = () => {
-  const {isLoaded, loadError} = useLoadScript(
+  const { isLoaded, loadError } = useLoadScript(
     {
       googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
       libraries,
     }
   );
+
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
     mapRef.current = map; 
   });
 
-// Prevents the map from changing unless the lat and lng change.
-// Used to pan to the location of the searched address
-const landOn = React.useCallback(({lat, lng}) => {
-  mapRef.current.panTo({lat, lng});
-  mapRef.current.setZoom(14);
-}); 
+  // Prevents the map from changing unless the lat and lng change.
+  // Used to pan to the location of the searched address
+  const landOn = React.useCallback(({lat, lng}) => {
+    mapRef.current.panTo({lat, lng});
+    mapRef.current.setZoom(14);
+  }); 
 
+  superagent.get('http://35.222.213.18/api/events')
+    .end((err, res) => {
+      console.log(res)
+    });
 
   if (loadError) return "Error loading the map."
   if (!isLoaded) return "Map loading."

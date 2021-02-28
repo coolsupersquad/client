@@ -59,6 +59,7 @@
     ]
   },
   "devDependencies": {
-    "@types/google-maps": "^3.2.2"
+    "@types/google-maps": "^3.2.2",
+    "dotenv": "^8.2.0"
   }
 }
