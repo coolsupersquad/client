@@ -131,9 +131,10 @@ const Near = () => {
                       },
                   };
                   // chunk.push(item)
-                  console.log("Old locations, ", locations)
-                  console.log("New locations, ", [...locations, item])
-                  setLocations([...locations, item])
+                  // console.log("Old locations, ", locations)
+                  // console.log("New locations, ", [...locations, item])
+                  // setLocations([...locations, item])
+                  setLocations(locations => locations.concat(item))
                 })
                 .catch((error) => {
                   console.log("😱 Error: ", error);
@@ -205,7 +206,7 @@ const Near = () => {
           onLoad = {onMapLoad}
           >
             {
-              locations && 
+              locations.length > 0 && 
               (locations.map(item => {
                 return (
                   <Marker key={item.name} position={item.location}/>
