@@ -1,3 +1,15 @@
+
+/* our code */
+
+.bottomNav {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* boilerplate code */
+
 .App {
   text-align: center;
 }
