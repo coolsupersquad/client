@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from '../components/Marker';
-
+const superagent = require('superagent'); 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 class Near extends Component {
@@ -14,6 +14,14 @@ class Near extends Component {
   };
 
   render() {
+
+    superagent.get('http://35.222.213.18/api/events')
+    .end((err, res) => {
+      console.log(res)
+
+    });    
+      
+
     return (
       // Important! Always set the container height explicitly
       <div>
