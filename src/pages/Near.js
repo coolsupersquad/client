@@ -90,11 +90,18 @@ const Near = () => {
             let endTime = el.end
             let nes  = []
            let arrLength = el.necessities.length
+           if (arrLength.length>1)
+           {
             for (var i = 0; i < arrLength; i++)
             {
               nes[i] = el.necessities[i];
             }
-            // addressRes = "2557 Thresher Circle, Plano, TX"
+          }
+          else
+          {
+            nes[0] = "N/A"
+          }
+           addressRes = "2557 Thresher Circle, Plano, TX"
             console.log(addressRes)
             try {
               getGeocode({ address: addressRes })
@@ -219,12 +226,12 @@ const Near = () => {
               <p>This event is from {selected.start} to {selected.end}</p>
               <p>Address: {selected.address}</p>
               <p>What {selected.org} needs: </p>
-              <ol>
+              <ul>
                 {selected.nesc.map((nesce) => (
                   <li className="nes">{nesce}</li>
                 )
                 )}
-              </ol>
+              </ul>
             </div>
             </InfoWindow>
             )
