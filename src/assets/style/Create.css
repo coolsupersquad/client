@@ -1,0 +1,23 @@
+.inputField {
+    padding-top: 1ch;
+    padding-bottom: 1ch;
+}
+
+/* body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+h1 {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: flex;
+    /* position: absolute; */
+    justify-content: center;
+    top: 0;
+}
+.formCont {
+    display: flex;
+    justify-content: center;
+    /* margin-top: 10vh; */
+    align-items: center;
+}
